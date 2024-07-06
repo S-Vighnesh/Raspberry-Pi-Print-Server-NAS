@@ -7,6 +7,7 @@ This project sets up a Raspberry Pi to serve as both a print server and a NAS (N
 2. [Prerequisites](#prerequisites)
 3. [Installation](#installation)
     - [Setting up the Raspberry Pi](#setting-up-the-raspberry-pi)
+    - [Setting up OpenMediaVault for NAS](#Setting-up-OpenMediaVault-for-NAS)
     - [Configuring USB/IP](#configuring-usbip)
     - [Setting up Samba for NAS](#setting-up-samba-for-nas)
 4. [Usage](#usage)
@@ -57,7 +58,8 @@ While installing the OS on the SD card, configure the SSH settings as well as th
     ```sh
     ifconfig
     ```
-    Now you can access the OpenMediaVault web GUI on a browser by entering the IP address of your Raspberry Pi in the search box.
+    
+    **Now you can access the OpenMediaVault web GUI on a browser by entering the IP address of your Raspberry Pi in the search box.**
 
     The default login:
     - username: admin
