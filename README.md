@@ -103,3 +103,131 @@ While installing the OS on the SD card, configure the SSH settings as well as th
         ![WindowsAccess1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/0d577d55-7e97-4077-a8b0-6aa6db707d44)
 
       Give a name to this network location if you want and click on next and finish. Now you should be able to see the network location on This PC.
+
+### Configuring USB/IP
+
+We can use a program called "CUPS" for Linux that shares the printer across the devices on the network but the problem with that software is that, we can't use the printer's application for printing; in my case it is Epson and it uses windows' default printing software which lacks many features that your printer's software offers. Because of this you can't utilize the full potential of your printer. Therefore, I have decided to use a program called USB/IP that shares USB devices between computers with their full functionality.
+To achieve the setup where your Raspberry Pi acts as a wireless USB port for your desktop, making the printer available as if it were directly connected to your PC, you can use USB over IP. This method involves using a USB/IP server on your Raspberry Pi and a USB/IP client on your desktop. Here’s how you can do it:
+
+1. Install USB/IP on Raspberry Pi
+    
+    1. **SSH into Your Raspberry Pi:**
+       ```bash
+       ssh pi@<raspberry_pi_ip>
+       ```
+    
+    2. **Update and Install Required Packages:**
+       ```bash
+       sudo apt update
+       sudo apt install usbip usbip-utils
+       ```
+    
+    3. **Load Kernel Modules:**
+       ```bash
+       sudo modprobe usbip-core
+       sudo modprobe usbip-host
+       ```
+    
+    4. **Ensure Modules Load at Boot:**
+       ```bash
+       echo 'usbip-core' | sudo tee -a /etc/modules
+       echo 'usbip-host' | sudo tee -a /etc/modules
+       ```
+    
+    5. **Start and Enable the USB/IP Daemon:**
+       ```bash
+       sudo systemctl start usbipd
+       sudo systemctl enable usbipd
+       ```
+    
+    6. **Find and Bind the Printer:**
+       - List USB devices to find your printer’s bus ID:
+         ```bash
+         usbip list -l
+         ```
+       - Bind the printer to USB/IP (replace `<busid>` with the actual bus ID of your printer, e.g., `1-1.2`):
+         ```bash
+         sudo usbip bind -b <busid>
+         ```
+
+2. Install USB/IP Client on Windows PC
+    
+    1. **Download USB/IP for Windows:**
+       - Download the latest USB/IP Windows driver and client from the [official USB/IP Windows repository](https://github.com/cezanne/usbip-win).
+    
+    2. **Extract the zip file**
+    
+    3. **Run the "usbip_test.pfx" file:**
+       - Select Local Maching -> Next -> Yes -> Next -> Password: usbip -> Next -> Next -> Okay
+    
+    4. **Connect to the Raspberry Pi USB/IP Server:**
+       - Open a command prompt with administrator privileges.
+       - Change directory to the folder which we unzipped and where the "usbip.exe" file is available
+         ```bash
+         cd <"path">
+         ```
+       - Install usbip.exe
+         ```bash
+         ./usbip.exe install
+         ```
+       - List available USB devices on the Raspberry Pi (replace `<raspberry_pi_ip>` with your Raspberry Pi's IP address):
+         ```bash
+         ./usbip.exe list -r <raspberry_pi_ip>
+         ```
+       - Attach the printer to your Windows machine (replace `<busid>` with the bus ID from the previous step):
+         ```bash
+         ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
+         ```
+
+3. Connect and Disconnect the Printer
+
+    **Connecting the Printer**
+    
+    1. On the PC, open a command prompt with administrator privileges.
+    2. Attach the printer to your PC:
+       ```bash
+       ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
+       ```
+    
+    **Disconnecting the Printer**
+    
+    1. On the PC, open a command prompt with administrator privileges.
+    2. Detach the printer from your PC:
+       ```bash
+       ./usbip.exe detach -p <port number (usually 0)>
+       ```
+
+4. Automating Connections with Scripts
+
+    To simplify connecting and disconnecting, you can create scripts on each PC.
+    
+    **Connection Script**
+    
+    Create a script to connect the printer to the PC.
+    
+    - **For Windows:**
+      ```bat
+      @echo off
+    
+      "[Location of the usbip.exe file]\usbip.exe" attach -r [raspberry pi ip] -b [busid]
+        
+      pause
+      ```
+    
+    **Disconnection Script**
+    
+    Create a script to disconnect the printer from the PC.
+    
+    - **For Windows:**
+      ```bat
+      @echo off
+    
+      "[Location of the usbip.exe file]\usbip.exe" detach -p [port number (usually 0)]
+    
+      pause
+    
+      ```
+Save this text files separately as ".bat" files. For ease, I had saved the first script as "attach_printer.bat" and the second script as "detach_printer.bat".
+Now, running the attach script automatically attaches your printer to the PC and you can start printing like you would do normally when the printer is attached directly to your PC. 
+You can run the detach script to disconnect the printer from the PC.
+You can follow these steps on all your PCs and keep these files handy on those PCs.
