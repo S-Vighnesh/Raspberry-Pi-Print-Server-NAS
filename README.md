@@ -61,8 +61,8 @@ While installing the OS on the SD card, configure the SSH settings as well as th
     ```sh
     ifconfig
     ```
-    
-    **Now you can access the OpenMediaVault web GUI on a browser by entering the IP address of your Raspberry Pi in the search box.**
+
+3. **Now you can access the OpenMediaVault web GUI on a browser by entering the IP address of your Raspberry Pi in the search box.**
 
     The default login:
     - username: admin
@@ -72,38 +72,43 @@ While installing the OS on the SD card, configure the SSH settings as well as th
 
     You can now plug in your USB storage device to the Pi.
 
-    - **Mounting your storage device:**
+4. **Mounting your storage device:**
       - Go to Storage -> File Systems -> Select the Mount button -> Select your storage device -> Save
      
         ![MountUSB1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/04e2dbe5-cf28-4f90-b49f-2a531cfd07f0)
 
       You should now be able to see your device.
 
-    - **Shared Folders:**
+5. **Shared Folders:**
       - Go to Storage -> Shared Folder -> Create ("+" sign)
+
         ![SharedFolders1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/86d24f6a-b416-4f20-9686-e11e1d64b87c)
 
       - Give a name to the shared folder, select your storage device and click on save.
       - Click on Privileges and give Read/Write permissions for both user accounts
 
-    - **Enable SMB Service:**
+6. **Enable SMB Service:**
       - Go to Services -> SMB/CIFS -> Settings and enable SMB
-        ![SMBEnable1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/d0200955-f33b-413a-b02c-1fabb8e0bbfb)
+
+         ![SMBEnable1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/d0200955-f33b-413a-b02c-1fabb8e0bbfb)
 
       - Go to Services -> SMB/CIFS -> Shares -> Create ("+" sign) -> Select your shared folder and hit save.
+
         ![SMBShare1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/1302126d-df60-469c-beb3-c84da35334eb)
 
 
-    - **Editing User:**
+7. **Editing User:**
       - Go to Users -> Users -> select your user -> Click on edit (Pen icon) -> Give password and confirm password -> Save
 
-    After these steps, you can click on apply on the top right corner to apply all these changes.
-   ![Apply1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/1234db91-378c-44bb-a6ac-85b79e781d88)
+After these steps, you can click on apply on the top right corner to apply all these changes.
 
-    - **Accessing the NAS on Windows:**
+![Apply1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/1234db91-378c-44bb-a6ac-85b79e781d88)
+
+8. **Accessing the NAS on Windows:**
       - Go to This PC -> right-click -> Add a network location -> Next -> Next -> in the text box fill "\\\\[Pi ip address]\\[name of your share]" and click enter.
       - You should see a login dialog box, enter your username and password, click on remember my credentials, and click OK.
-        ![WindowsAccess1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/0d577d55-7e97-4077-a8b0-6aa6db707d44)
+
+         ![WindowsAccess1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/0d577d55-7e97-4077-a8b0-6aa6db707d44)
 
       Give a name to this network location if you want and click on next and finish. Now you should be able to see the network location on This PC.
 
@@ -127,28 +132,28 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
        sudo apt install usbip usbip-utils
        ```
     
-    3. **Load Kernel Modules:**
+    3. Load Kernel Modules:
        
        ```bash
        sudo modprobe usbip-core
        sudo modprobe usbip-host
        ```
     
-    4. **Ensure Modules Load at Boot:**
+    4. Ensure Modules Load at Boot:
        
        ```bash
        echo 'usbip-core' | sudo tee -a /etc/modules
        echo 'usbip-host' | sudo tee -a /etc/modules
        ```
     
-    5. **Start and Enable the USB/IP Daemon:**
+    5. Start and Enable the USB/IP Daemon:
        
        ```bash
        sudo systemctl start usbipd
        sudo systemctl enable usbipd
        ```
     
-    6. **Find and Bind the Printer:**
+    6. Find and Bind the Printer:
 
        - List USB devices to find your printer’s bus ID:
        
@@ -162,17 +167,17 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
          sudo usbip bind -b <busid>
          ```
 
-2. Install USB/IP Client on Windows PC
+2. **Install USB/IP Client on Windows PC**
     
-    1. **Download USB/IP for Windows:**
+    1. Download USB/IP for Windows:
        - Download the latest USB/IP Windows driver and client from the [official USB/IP Windows repository](https://github.com/cezanne/usbip-win).
     
-    2. **Extract the zip file**
+    2. Extract the zip file
     
-    3. **Run the "usbip_test.pfx" file:**
+    3. Run the "usbip_test.pfx" file:
        - Select Local Maching -> Next -> Yes -> Next -> Password: usbip -> Next -> Next -> Okay
     
-    4. **Connect to the Raspberry Pi USB/IP Server:**
+    4. Connect to the Raspberry Pi USB/IP Server:
        - Open a command prompt with administrator privileges.
        - Change directory to the folder which we unzipped and where the "usbip.exe" file is available
 
@@ -198,9 +203,9 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
          ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
          ```
 
-3. Connect and Disconnect the Printer
+3. **Connect and Disconnect the Printer**
 
-    - **Connecting the Printer**
+    - Connecting the Printer
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Attach the printer to your PC:
@@ -209,7 +214,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
        ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
        ```
     
-    - **Disconnecting the Printer**
+    - Disconnecting the Printer
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Detach the printer from your PC:
@@ -218,7 +223,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
        ./usbip.exe detach -p <port number (usually 0)>
        ```
 
-4. Automating Connections with Scripts
+4. **Automating Connections with Scripts**
 
     To simplify connecting and disconnecting, you can create scripts on each PC.
     
@@ -226,7 +231,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
  
    Create a script to connect the printer to the PC.
         
-   **For Windows:**
+   For Windows:
    
    ```bat
           @echo off
@@ -240,7 +245,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
     
     Create a script to disconnect the printer from the PC.
     
-   **For Windows:**
+   For Windows:
    
    ```bat
           @echo off
