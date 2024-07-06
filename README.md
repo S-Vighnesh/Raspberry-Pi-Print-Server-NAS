@@ -210,7 +210,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
    ```bat
           @echo off
         
-          "[Location of the usbip.exe file]\usbip.exe" attach -r [raspberry pi ip] -b [busid]
+          "[Location of the usbip.exe file]\usbip.exe" attach -r <raspberry_pi_ip> -b <busid>
             
           pause
    ```
@@ -223,7 +223,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
    ```bat
           @echo off
         
-          "[Location of the usbip.exe file]\usbip.exe" detach -p [port number (usually 0)]
+          "<Location of the usbip.exe file>\usbip.exe" detach -p <port number (usually 0)>
         
           pause
         
