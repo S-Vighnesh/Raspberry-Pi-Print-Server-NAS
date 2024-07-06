@@ -181,7 +181,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
 
 3. Connect and Disconnect the Printer
 
-    **Connecting the Printer**
+    -**Connecting the Printer**
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Attach the printer to your PC:
@@ -189,7 +189,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
        ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
        ```
     
-    **Disconnecting the Printer**
+    -**Disconnecting the Printer**
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Detach the printer from your PC:
@@ -201,32 +201,32 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
 
     To simplify connecting and disconnecting, you can create scripts on each PC.
     
-    **Connection Script**
-    
-    Create a script to connect the printer to the PC.
-    
-    - **For Windows:**
-      ```bat
-      @echo off
-    
-      "[Location of the usbip.exe file]\usbip.exe" attach -r [raspberry pi ip] -b [busid]
+    -**Connection Script**
+ 
+   Create a script to connect the printer to the PC.
         
-      pause
-      ```
+         **For Windows:**
+          ```bat
+          @echo off
+        
+          "[Location of the usbip.exe file]\usbip.exe" attach -r [raspberry pi ip] -b [busid]
+            
+          pause
+          ```
     
-    **Disconnection Script**
+    -**Disconnection Script**
     
     Create a script to disconnect the printer from the PC.
     
-    - **For Windows:**
-      ```bat
-      @echo off
-    
-      "[Location of the usbip.exe file]\usbip.exe" detach -p [port number (usually 0)]
-    
-      pause
-    
-      ```
+         **For Windows:**
+          ```bat
+          @echo off
+        
+          "[Location of the usbip.exe file]\usbip.exe" detach -p [port number (usually 0)]
+        
+          pause
+        
+          ```
 Save this text files separately as ".bat" files. For ease, I had saved the first script as "attach_printer.bat" and the second script as "detach_printer.bat".
 Now, running the attach script automatically attaches your printer to the PC and you can start printing like you would do normally when the printer is attached directly to your PC. 
 You can run the detach script to disconnect the printer from the PC.
