@@ -41,6 +41,7 @@ Firstly, prep your Pi by installing the OS for it on an SD Card. You can use any
 While installing the OS on the SD card, configure the SSH settings as well as the WiFi settings, or else you can connect a Pi to a monitor, keyboard, and mouse directly. Once we have got all this done and the Pi running, we can install the necessary programs required for this project with the help of the terminal.
 
 1. **Update and upgrade the system:**
+   
     ```sh
     sudo apt update && sudo apt upgrade -y
     ```
@@ -49,12 +50,14 @@ While installing the OS on the SD card, configure the SSH settings as well as th
 ### Setting up OpenMediaVault for NAS
 
 1. **Install OpenMediaVault:**
+    
     ```sh
     wget -O - https://raw.githubusercontent.com/OpenMediaVault-Plugin-Developers/installScript/master/install | sudo bash
     ```
     This command will install OpenMediaVault on your Pi. Using this software, you can easily configure your storage devices (e.g., a pendrive, External HDD, or SSD) to this NAS via a web graphical web interface. After the execution of this command, your Pi will reboot so you have to log in to your Pi again.
 
 2. **Find IP of the Pi:**
+    
     ```sh
     ifconfig
     ```
@@ -112,40 +115,49 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
 1. Install USB/IP on Raspberry Pi
     
     1. **SSH into Your Raspberry Pi:**
+       
        ```bash
        ssh pi@<raspberry_pi_ip>
        ```
     
     2. **Update and Install Required Packages:**
+       
        ```bash
        sudo apt update
        sudo apt install usbip usbip-utils
        ```
     
     3. **Load Kernel Modules:**
+       
        ```bash
        sudo modprobe usbip-core
        sudo modprobe usbip-host
        ```
     
     4. **Ensure Modules Load at Boot:**
+       
        ```bash
        echo 'usbip-core' | sudo tee -a /etc/modules
        echo 'usbip-host' | sudo tee -a /etc/modules
        ```
     
     5. **Start and Enable the USB/IP Daemon:**
+       
        ```bash
        sudo systemctl start usbipd
        sudo systemctl enable usbipd
        ```
     
     6. **Find and Bind the Printer:**
+
        - List USB devices to find your printer’s bus ID:
-         ```bash
+       
+        ```bash
          usbip list -l
          ```
+
        - Bind the printer to USB/IP (replace `<busid>` with the actual bus ID of your printer, e.g., `1-1.2`):
+       
          ```bash
          sudo usbip bind -b <busid>
          ```
@@ -163,18 +175,25 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
     4. **Connect to the Raspberry Pi USB/IP Server:**
        - Open a command prompt with administrator privileges.
        - Change directory to the folder which we unzipped and where the "usbip.exe" file is available
+
          ```bash
          cd <"path">
          ```
+       
        - Install usbip.exe
+       
          ```bash
          ./usbip.exe install
          ```
+       
        - List available USB devices on the Raspberry Pi (replace `<raspberry_pi_ip>` with your Raspberry Pi's IP address):
+       
          ```bash
          ./usbip.exe list -r <raspberry_pi_ip>
          ```
+       
        - Attach the printer to your Windows machine (replace `<busid>` with the bus ID from the previous step):
+       
          ```bash
          ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
          ```
@@ -185,6 +204,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Attach the printer to your PC:
+
        ```bash
        ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
        ```
@@ -193,6 +213,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Detach the printer from your PC:
+
        ```bash
        ./usbip.exe detach -p <port number (usually 0)>
        ```
