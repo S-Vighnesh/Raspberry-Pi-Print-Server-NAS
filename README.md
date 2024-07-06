@@ -205,7 +205,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
 
 3. **Connect and Disconnect the Printer**
 
-    - Connecting the Printer
+    - **Connecting the Printer**
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Attach the printer to your PC:
@@ -214,7 +214,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
        ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
        ```
     
-    - Disconnecting the Printer
+    - **Disconnecting the Printer**
     
     1. On the PC, open a command prompt with administrator privileges.
     2. Detach the printer from your PC:
