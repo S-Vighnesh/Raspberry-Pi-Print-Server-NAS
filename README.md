@@ -112,15 +112,15 @@ While installing the OS on the SD card, configure the SSH settings as well as th
 We can use a program called "CUPS" for Linux that shares the printer across the devices on the network but the problem with that software is that, we can't use the printer's application for printing; in my case it is Epson and it uses windows' default printing software which lacks many features that your printer's software offers. Because of this you can't utilize the full potential of your printer. Therefore, I have decided to use a program called USB/IP that shares USB devices between computers with their full functionality.
 To achieve the setup where your Raspberry Pi acts as a wireless USB port for your desktop, making the printer available as if it were directly connected to your PC, you can use USB over IP. This method involves using a USB/IP server on your Raspberry Pi and a USB/IP client on your desktop. Here’s how you can do it:
 
-1. Install USB/IP on Raspberry Pi
+1. **Install USB/IP on Raspberry Pi**
     
-    1. **SSH into Your Raspberry Pi:**
+    1. SSH into Your Raspberry Pi:
        
        ```bash
        ssh pi@<raspberry_pi_ip>
        ```
     
-    2. **Update and Install Required Packages:**
+    2. Update and Install Required Packages:
        
        ```bash
        sudo apt update
