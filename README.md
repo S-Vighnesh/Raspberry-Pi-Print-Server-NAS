@@ -22,7 +22,7 @@ This project sets up a Raspberry Pi to serve as both a print server and a NAS (N
 
 This project transforms a Raspberry Pi into a multifunctional device, allowing you to:
 - Wirelessly print from any computer on the network.
-- Share files via a NAS setup.
+- Share and access files on any device via a NAS setup.
 
 ## Prerequisites
 
