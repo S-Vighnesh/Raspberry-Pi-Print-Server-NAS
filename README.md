@@ -220,6 +220,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
     Create a script to disconnect the printer from the PC.
     
    **For Windows:**
+   
    ```bat
           @echo off
         
