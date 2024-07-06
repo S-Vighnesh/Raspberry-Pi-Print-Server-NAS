@@ -157,7 +157,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
 
        - List USB devices to find your printer’s bus ID:
        
-        ```bash
+         ```bash
          usbip list -l
          ```
 
