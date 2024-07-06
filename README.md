@@ -73,14 +73,14 @@ While installing the OS on the SD card, configure the SSH settings as well as th
     You can now plug in your USB storage device to the Pi.
 
 4. **Mounting your storage device:**
-    1. Go to Storage -> File Systems -> Select the Mount button -> Select your storage device -> Save
+    1. Go to _Storage -> File Systems -> Select the Mount button -> Select your storage device -> Save_
      
         ![MountUSB1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/04e2dbe5-cf28-4f90-b49f-2a531cfd07f0)
 
       You should now be able to see your device.
 
 5. **Shared Folders:**
-    1. Go to Storage -> Shared Folder -> Create ("+" sign)
+    1. Go to _Storage -> Shared Folder -> Create ("+" sign)_
 
         ![SharedFolders1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/86d24f6a-b416-4f20-9686-e11e1d64b87c)
 
@@ -88,24 +88,24 @@ While installing the OS on the SD card, configure the SSH settings as well as th
     3. Click on Privileges and give Read/Write permissions for both user accounts
 
 6. **Enable SMB Service:**
-   1. Go to Services -> SMB/CIFS -> Settings and enable SMB
+   1. Go to _Services -> SMB/CIFS -> Settings and enable SMB_
 
          ![SMBEnable1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/d0200955-f33b-413a-b02c-1fabb8e0bbfb)
 
-   2. Go to Services -> SMB/CIFS -> Shares -> Create ("+" sign) -> Select your shared folder and hit save.
+   2. Go to _Services -> SMB/CIFS -> Shares -> Create ("+" sign) -> Select your shared folder and hit save._
 
         ![SMBShare1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/1302126d-df60-469c-beb3-c84da35334eb)
 
 
 7. **Editing User:**
-   1. Go to Users -> Users -> select your user -> Click on edit (Pen icon) -> Give password and confirm password -> Save
+   1. Go to _Users -> Users -> select your user -> Click on edit (Pen icon) -> Give password and confirm password -> Save_
 
 After these steps, you can click on apply on the top right corner to apply all these changes.
 
 ![Apply1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/1234db91-378c-44bb-a6ac-85b79e781d88)
 
 8. **Accessing the NAS on Windows:**
-   1. Go to This PC -> right-click -> Add a network location -> Next -> Next -> in the text box fill "\\\\[Pi ip address]\\[name of your share]" and click enter.
+   1. Go to _This PC -> right-click -> Add a network location -> Next -> Next ->_ in the text box fill `\\[Pi ip address]\[name of your share]` and click enter.
    2. You should see a login dialog box, enter your username and password, click on remember my credentials, and click OK.
 
          ![WindowsAccess1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/0d577d55-7e97-4077-a8b0-6aa6db707d44)
