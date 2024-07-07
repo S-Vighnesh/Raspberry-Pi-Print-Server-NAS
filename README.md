@@ -250,7 +250,6 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
           @echo off
         
           "<Location of the usbip.exe file>\usbip.exe" detach -p <port number (usually 0)>
-        
           pause
         
    ```
