@@ -406,7 +406,7 @@ If these steps don't resolve your issue, please open an issue on the [GitHub rep
 
 ## Contributing
 
-We welcome contributions to this project! If you would like to contribute, please follow these steps:
+I welcome contributions to this project! If you would like to contribute, please follow these steps:
 
 1. **Fork the Repository:**
    - Click the "Fork" button on the upper right corner of the repository page.
