@@ -8,7 +8,7 @@ This project sets up a Raspberry Pi to serve as both a print server and a NAS (N
 3. [Installation](#installation)
     - [Setting up the Raspberry Pi](#setting-up-the-raspberry-pi)
     - [Setting up OpenMediaVault for NAS](#Setting-up-OpenMediaVault-for-NAS)
-        - [Accessing the NAS on Windows](#Accessing-the-NAS-on-Windows:)
+        - [Accessing the NAS on Windows](#Accessing-the-NAS-on-Windows)
     - [Configuring USB/IP](#configuring-usbip)
         - [Connect and Disconnect the Printer](#Connect-and-Disconnect-the-Printer)
         - [Automating Connections with Scripts](#Automating-Connections-with-Scripts)
@@ -102,7 +102,7 @@ After these steps, you can click on apply on the top right corner to apply all t
 
 ![Apply1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/1234db91-378c-44bb-a6ac-85b79e781d88)
 
-8. #### **Accessing the NAS on Windows:**
+8. #### **Accessing the NAS on Windows**
    1. Go to _This PC -> right-click -> Add a network location -> Next -> Next ->_ in the text box fill `\\[Pi ip address]\[name of your share]` and click enter.
    2. You should see a login dialog box, enter your username and password, click on remember my credentials, and click OK.
 
