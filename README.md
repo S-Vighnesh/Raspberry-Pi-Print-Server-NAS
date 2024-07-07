@@ -8,11 +8,12 @@ This project sets up a Raspberry Pi to serve as both a print server and a NAS (N
 3. [Installation](#installation)
     - [Setting up the Raspberry Pi](#setting-up-the-raspberry-pi)
     - [Setting up OpenMediaVault for NAS](#Setting-up-OpenMediaVault-for-NAS)
+        - [Accessing the NAS on Windows](#Accessing-the-NAS-on-Windows:)
     - [Configuring USB/IP](#configuring-usbip)
-        - [Connecting to the Printer](#connecting-to-the-printer)
-        - [Disconnecting from the Printer](#disconnecting-from-the-printer)
-4. [Usage](#usage)   
-    - [Accessing NAS](#accessing-nas)
+        - [Connect and Disconnect the Printer](#Connect-and-Disconnect-the-Printer)
+        - [Automating Connections with Scripts](#Automating-Connections-with-Scripts)
+4. [Power off button for Pi](#Power-off-button-for-Pi)   
+    
 5. [Automation](#automation)
 6. [Troubleshooting](#troubleshooting)
 7. [Contributing](#contributing)
@@ -103,7 +104,7 @@ After these steps, you can click on apply on the top right corner to apply all t
 
 ![Apply1](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/1234db91-378c-44bb-a6ac-85b79e781d88)
 
-8. **Accessing the NAS on Windows:**
+8. #### **Accessing the NAS on Windows:**
    1. Go to _This PC -> right-click -> Add a network location -> Next -> Next ->_ in the text box fill `\\[Pi ip address]\[name of your share]` and click enter.
    2. You should see a login dialog box, enter your username and password, click on remember my credentials, and click OK.
 
@@ -202,7 +203,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
          ./usbip.exe attach -r <raspberry_pi_ip> -b <busid>
          ```
 
-3. **Connect and Disconnect the Printer**
+3. #### **Connect and Disconnect the Printer**
 
     - **Connecting the Printer**
     
@@ -222,7 +223,7 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
        ./usbip.exe detach -p <port number (usually 0)>
        ```
 
-4. **Automating Connections with Scripts**
+4. #### **Automating Connections with Scripts**
 
     To simplify connecting and disconnecting, you can create scripts on each PC.
     
@@ -250,10 +251,127 @@ To achieve the setup where your Raspberry Pi acts as a wireless USB port for you
           @echo off
         
           "<Location of the usbip.exe file>\usbip.exe" detach -p <port number (usually 0)>
+   
           pause
-        
    ```
 Save this text files separately as ".bat" files. For ease, I had saved the first script as "attach_printer.bat" and the second script as "detach_printer.bat".
 Now, running the attach script automatically attaches your printer to the PC and you can start printing like you would do normally when the printer is attached directly to your PC. 
 You can run the detach script to disconnect the printer from the PC.
 You can follow these steps on all your PCs and keep these files handy on those PCs.
+
+### Power Off Button for Pi
+
+**Why Add a Shutdown Button?**
+
+Adding a shutdown button to your Raspberry Pi provides a convenient and safe way to power off the device. Properly shutting down the Raspberry Pi helps prevent file system corruption and data loss that can occur from abrupt power disconnections. By using a physical button, you ensure that the Pi shuts down gracefully, protecting your data and extending the lifespan of your SD card.
+
+**Adding a shutdown button**
+
+We'll need a button preferably one with 2 pins and we need to connect one of the pins to "Gnd" and the other pin to the "GPIO 17". You can connect to any other GPIO pin on the Pi but you need to make changes accordingly in the python script given below.
+
+1. Create the Python Script
+
+    First, create the Python script to handle the button press:
+    
+    ```sh
+    sudo nano shutdown_button.py
+    ```
+    
+    Add the following code:
+    
+    ```python
+    import lgpio
+    import time
+    import os
+    
+    BUTTON_GPIO = 17
+    
+    def shutdown_button(chip, gpio, level, timestamp):
+        print("Button pressed! Shutting down...")
+        os.system("sudo shutdown -h now")
+    
+    chip = lgpio.gpiochip_open(0)
+    lgpio.gpio_claim_input(chip, BUTTON_GPIO)
+    
+    lgpio.gpio_set_debounce_micros(chip, BUTTON_GPIO, 200000)  # 200000 microseconds = 200 milliseconds
+    
+    lgpio.gpio_claim_alert(chip, BUTTON_GPIO, lgpio.FALLING_EDGE)
+    
+    # Register the callback for button press
+    lgpio.callback(chip, BUTTON_GPIO, lgpio.FALLING_EDGE, shutdown_button)
+    
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("Exiting gracefully")
+    finally:
+        lgpio.gpiochip_close(chip)
+    ```
+    
+    Save and exit the file.
+
+2. Test the Script
+
+    Run the script to ensure it works correctly:
+    
+    ```sh
+    sudo python3 shutdown_button.py
+    ```
+
+3. Create the Systemd Service
+
+    Create a systemd service to run the script automatically:
+    
+    ```sh
+    sudo nano /etc/systemd/system/shutdown_button.service
+    ```
+    
+    Add the following content:
+    
+    ```ini
+    [Unit]
+    Description=Shutdown Button Service
+    After=multi-user.target
+    
+    [Service]
+    Type=simple
+    ExecStart=/usr/bin/python3 /home/<Pi User>/shutdown_button.py
+    Restart=on-failure
+    User=root
+    
+    [Install]
+    WantedBy=multi-user.target
+    ```
+    
+    Replace `<Pi User>` with your actual Raspberry Pi username.
+
+4. Enable and Start the Service
+
+    Reload the systemd manager configuration:
+    
+    ```sh
+    sudo systemctl daemon-reload
+    ```
+    
+    Enable the service to start on boot:
+    
+    ```sh
+    sudo systemctl enable shutdown_button.service
+    ```
+    
+    Start the service:
+    
+    ```sh
+    sudo systemctl start shutdown_button.service
+    ```
+
+5. Verify the Service
+
+    Check the status of the service to ensure it's running:
+    
+    ```sh
+    sudo systemctl status shutdown_button.service
+    ```
+
+This will set up your Raspberry Pi to shut down gracefully when the button connected to GPIO pin 17 is pressed and you can unplug the Pi safely.
