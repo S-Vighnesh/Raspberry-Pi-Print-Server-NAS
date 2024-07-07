@@ -2,6 +2,9 @@
 
 This project sets up a Raspberry Pi to serve as both a print server and a NAS (Network Attached Storage), making a wired printer accessible wirelessly and sharing files across the network.
 
+![20240708_000240](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS/assets/137196908/79f7e0af-ea95-45fa-aff5-f23cbb490e80)
+
+
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Prerequisites](#prerequisites)
