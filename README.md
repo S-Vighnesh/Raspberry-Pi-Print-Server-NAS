@@ -13,11 +13,9 @@ This project sets up a Raspberry Pi to serve as both a print server and a NAS (N
         - [Connect and Disconnect the Printer](#Connect-and-Disconnect-the-Printer)
         - [Automating Connections with Scripts](#Automating-Connections-with-Scripts)
 4. [Power off button for Pi](#Power-off-button-for-Pi)   
-    
-5. [Automation](#automation)
-6. [Troubleshooting](#troubleshooting)
-7. [Contributing](#contributing)
-8. [License](#license)
+5. [Troubleshooting](#troubleshooting)
+6. [Contributing](#contributing)
+7. [License](#license)
 
 ## Introduction
 
@@ -259,7 +257,7 @@ Now, running the attach script automatically attaches your printer to the PC and
 You can run the detach script to disconnect the printer from the PC.
 You can follow these steps on all your PCs and keep these files handy on those PCs.
 
-### Power Off Button for Pi
+## Power Off Button for Pi
 
 **Why Add a Shutdown Button?**
 
@@ -375,3 +373,75 @@ We'll need a button preferably one with 2 pins and we need to connect one of the
     ```
 
 This will set up your Raspberry Pi to shut down gracefully when the button connected to GPIO pin 17 is pressed and you can unplug the Pi safely.
+
+## Troubleshooting
+
+If you encounter any issues while setting up or using the USB/IP setup, here are some common troubleshooting steps:
+
+1. **Check Connections:**
+   - Ensure your Raspberry Pi and Windows PC are connected to the same network.
+   - Verify the IP address of your Raspberry Pi.
+
+2. **Verify USB/IP Daemon Status:**
+   - On your Raspberry Pi, check if the USB/IP daemon is running:
+     ```bash
+     sudo systemctl status usbipd
+     ```
+   - If it's not running, try restarting it:
+     ```bash
+     sudo systemctl restart usbipd
+     ```
+
+3. **Check for Errors in Command Prompt:**
+   - On your Windows PC, if the `usbip.exe` commands are not working, ensure you are running the command prompt as an administrator.
+
+4. **Rebind the USB Device:**
+   - If the printer is not showing up, try unbinding and rebinding the USB device:
+     ```bash
+     sudo usbip unbind -b <busid>
+     sudo usbip bind -b <busid>
+     ```
+
+If these steps don't resolve your issue, please open an issue on the [GitHub repository](https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS) with detailed information about the problem.
+
+## Contributing
+
+We welcome contributions to this project! If you would like to contribute, please follow these steps:
+
+1. **Fork the Repository:**
+   - Click the "Fork" button on the upper right corner of the repository page.
+
+2. **Clone Your Fork:**
+   - Clone your forked repository to your local machine:
+     ```bash
+     git clone https://github.com/S-Vighnesh/Raspberry-Pi-Print-Server-and-NAS.git
+     ```
+
+3. **Create a New Branch:**
+   - Create a new branch for your feature or bugfix:
+     ```bash
+     git checkout -b feature-or-bugfix-name
+     ```
+
+4. **Make Your Changes:**
+   - Implement your feature or bugfix.
+
+5. **Commit Your Changes:**
+   - Commit your changes with a meaningful commit message:
+     ```bash
+     git commit -m "Description of your changes"
+     ```
+
+6. **Push to Your Fork:**
+   - Push your changes to your forked repository:
+     ```bash
+     git push origin feature-or-bugfix-name
+     ```
+
+7. **Create a Pull Request:**
+   - Open a pull request on the original repository. Provide a clear description of your changes and why they should be merged.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
